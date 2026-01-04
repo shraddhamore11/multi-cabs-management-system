@@ -1,0 +1,251 @@
+<%@page import="com.shiwani.dbcon.*" %>
+<%@page import="java.sql.*" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+
+<head>
+    <meta charset="utf-8">
+    <title>CarServ - Car Repair HTML Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Ubuntu:wght@400;500&display=swap" rel="stylesheet"> 
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+   
+
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="m-0 text-primary"><i class="fa fa-car me-3"></i>MultiCabs</h2>
+        </a>
+         
+       
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+              <a href="ViewRoute.jsp" class="nav-item nav-link">Back</a>
+                
+               
+            </div>
+           
+        </div>
+    </nav>
+    <!-- Navbar End -->
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+       
+    </nav>
+    <!-- Navbar End -->
+
+
+    <!-- Page Header Start -->
+    
+    <div class="container-fluid page-header mb-5 p-0" style="background-image: url(img/carousel-bg-12.png);">
+        <div class="container-fluid page-header-inner py-5">
+            <div class="container text-center">
+                <h1 class="display-3 text-white mb-3 animated slideInDown"> Edit Route</h1>
+               
+            </div>
+        </div>
+    </div>
+    <div class="container-xxl py-5">
+        <div class="container">     
+                </div>
+                <div class="form-body">
+    <form method="post"action="Edit.jsp">
+    <div class="row g-3">                   
+
+						  <%
+						  
+						  	try
+						  	{
+						  		
+						  		Connection con = ConnectDB.connect();
+						  	    String sr_no=request.getParameter("sr_no");
+						  		
+						  		PreparedStatement ps = con.prepareStatement("select * from adminroute_tbl where sr_no="+sr_no);
+						  		
+						  	
+						  		ResultSet rs = ps.executeQuery();
+						  		while(rs.next())
+						  		{
+						  		%>
+						  			
+						  			
+						  	<div class="col-md-12">
+					    <label><b>sr_no :</b></label>
+					    <div class="form-floating">
+						<input class="form-control" type="text"id="sr_no"name="sr_no"value="<%=rs.getString(1)%>"required/>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+						
+						</span>
+					    </div>
+					    </div>
+						  		
+						<div class="col-md-12">
+					    <label><b>Pick Up Point :</b></label>
+					    <div class="form-floating">
+						<input class="form-control" type="text"id="Pick_Up_Point"name="Pick_Up_Point"value="<%=rs.getString(2)%>"required/>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+						
+						</span>
+					    </div>
+					    </div>
+								     
+			            <div class="col-md-12">
+					    <label><b>Destination :</b></label>
+					    <div class="form-floating">
+						<input class="form-control" type="text" id="Destination"name="Destination"value="<%=rs.getString(3)%>"required/>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+					
+						</span>
+					    </div>
+					    </div>
+					
+					    <div class="col-md-12">
+					    <label><b>Ola_Rate :</b></label>
+					    <div class="form-floating">
+						<input class="form-control" type="text"id="Ola_Rate"name="Ola_Rate"value="<%=rs.getString(4)%>"required/>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+						<script>
+						function Ola_Rate()
+						{
+							let txt=document.getElementById("Ola_Rate").defaultValue;
+							document.getElementById("olr").innerHTML=text;
+						}
+						</script>
+						</span>
+					    </div>
+					    </div>
+					    
+					    <div class="col-md-12">
+					    <label><b>Uber_Rate :</b></label>
+					    <div class="form-floating">
+						<input class="form-control" type="text"id="Uber_Rate"name="Uber_Rate"value="<%=rs.getString(5)%>"required/>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+						<script>
+						function Uber_Rate()
+						{
+							let txt=document.getElementById("Uber_Rate").defaultValue;
+							document.getElementById("ubr").innerHTML=text;
+						}
+						</script>
+						</span>
+					    </div>
+					    </div>
+										
+					    <div class="col-md-12">
+					    <label><b>Red_Bus_Rate :</b></label>
+					    <div class="form-floating">
+						<input class="form-control" type="text"id="Red_Bus_Rate"name="Red_Bus_Rate"value="<%=rs.getString(6)%>"required/>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+						<script>
+						function Red_Bus_Rate()
+						{
+							let txt=document.getElementById("Red_Bus_Rate").defaultValue;
+							document.getElementById("rdb").innerHTML=text;
+						}
+						</script>
+						</span>
+					    </div>
+					    </div>
+					
+					    <div class="col-md-12">
+					    <label><b>Go-Green Bus Rate :</b></label>
+					    <div class="form-floating">
+						<input class="form-control" type="text"id="Go_Green_Bus"name="Go_Green_Bus"value="<%=rs.getString(7)%>"required/>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+						<script>
+						function Go_Green_Bus()
+						{
+							let txt=document.getElementById("Go_Green_Bus").defaultValue;
+							document.getElementById("ggb").innerHTML=text;
+						}
+						</script>
+						</span>
+					    </div>
+					    </div>
+					  <div class="col-12">
+                        <button class="btn btn-primary w-100 py-3" type="submit"><font color="white">Update</font></button>
+                       </div>
+					      
+					<% 
+					}
+					}
+					catch(Exception e)
+					{
+					e.printStackTrace();
+					}
+						  
+					%>
+					
+					</div>
+					</div>
+					</div>
+   
+					 </form>
+					
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>
